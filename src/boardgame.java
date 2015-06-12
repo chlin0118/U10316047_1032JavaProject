@@ -51,19 +51,19 @@ public class boardgame extends JFrame{
 	jlbs[15] = new JLabel(card8);
 	}
 	
-	private JLabel jlbDetail = new JLabel(card11);
+	private JLabel jlbDetail = new JLabel();
 	private JLabel jlbDeck[] = new JLabel[16];
 	
-	private JLabel jlb0 = new JLabel(card0);
-	private JLabel jlb1 = new JLabel(card1);
-	private JLabel jlb2 = new JLabel(card2);
-	private JLabel jlb3 = new JLabel(card3);
+	private JLabel jlb0 = new JLabel();
+	private JLabel jlb1 = new JLabel();
+	private JLabel jlb2 = new JLabel();
+	private JLabel jlb3 = new JLabel();
 	private JLabel jlb4[] = new JLabel[7];
 	private JLabel jlb5[] = new JLabel[7];
-	private JLabel jlb6 = new JLabel(card6);
-	private JLabel jlb7 = new JLabel(card7);
-	private JLabel jlb8 = new JLabel(card8);
-	private JLabel jlb9 = new JLabel(card0);
+	private JLabel jlb6 = new JLabel();
+	private JLabel jlb7 = new JLabel();
+	private JLabel jlb8 = new JLabel();
+	private JLabel jlb9 = new JLabel();
 	
 	private JLabel jlbcom = new JLabel();
 	private JLabel jlbcom2 = new JLabel();
@@ -137,25 +137,7 @@ public class boardgame extends JFrame{
 		
 		jlb9.setBounds(465, 370, 100, 140);
 		JP1.add(jlb9);
-		/*
-		jlbguess.setBounds(400, 500, 200, 140);
-		jlbguess.setFont(new Font("Courie", Font.BOLD, 18));
-		JP1.add(jlbguess);
-		
-		guess.setBounds(480, 600, 50, 50);
-		guess.setFont(new Font("Courie", Font.BOLD, 20));
-		JP1.add(guess);
-		
-		jbtguess.setBounds(550, 600, 80, 50);
-		jbtguess.setFont(new Font("Courie", Font.BOLD, 20));
-		JP1.add(jbtguess);*/
-		
-		/*
-		Text1.setFont(new Font("Courie", Font.BOLD, 50));
-		Text1.setBorder(new LineBorder(Color.PINK, 2));
-		Text1.setEditable(false);
-		JP1.add(Text1);*/
-		
+	
 		jbtStart.setFont(new Font("Courie", Font.BOLD, 30));
 		jbtStart.setBounds(800, 400, 100, 60);
 		JP1.add(jbtStart);
@@ -189,20 +171,7 @@ public class boardgame extends JFrame{
 		
 		lbl= new JLabel();
 		JP1.add(lbl);
-		lbl.setBounds(0, 0, 300, 400);
-		
-		/*
-		for(int i=0;i<16;i++){
-			jlbs[i].setBounds(737, 317-20*i, 100, 140);
-			JP1.add(jlbs[i]);
-		}*/
-	
-		jlbs[0].setBounds(737, 517, 100, 140);
-		JP1.add(jlbs[0]);
-		
-		
-	
-		
+		lbl.setBounds(0, 0, 300, 400);	
 	
 		jlb0.addMouseListener(new ClickMouseListener0());
 		jlb0.addMouseListener(new EnterMouseListener0());
@@ -425,7 +394,7 @@ public class boardgame extends JFrame{
 	
 	public void initDeck2(JLabel[] j) {
 		for(int i =0;i<7;i++){
-			j[i] = new JLabel(card4);
+			j[i] = new JLabel();
 			j[i].setBounds(240-i*40, 210, 100, 140);
 			JP1.add(j[i]);
 		}
@@ -433,7 +402,7 @@ public class boardgame extends JFrame{
 	
 	public void initDeck3(JLabel[] j) {
 		for(int i =0;i<7;i++){
-			j[i] = new JLabel(card5);
+			j[i] = new JLabel();
 			j[i].setBounds(240-i*40, 370, 100, 140);
 			JP1.add(j[i]);
 		}
@@ -593,41 +562,39 @@ public class boardgame extends JFrame{
 	}
 	
 	public void computer(){
-		if(cardorder>=16){
-			finalresult();
-		}
+
 		cardorder++;
 		if(cardorder>=16){
 			finalresult();
 		}
-		
-		jlbcom2.setIcon(jlbs[cardorder].getIcon());
-		JP1.remove(jlbDeck[cardorder]);
-		
-		int a = (int)(Math.random() * 2);
-		
-		if(a==1){
-			jlb4[uporder4].setIcon(jlbcom2.getIcon());
-			jlbcom2.setIcon(null);
-		}
 		else{
-			jlb4[uporder4].setIcon(jlbcom.getIcon());
-			jlbcom.setIcon(jlbcom2.getIcon());
-			jlbcom2.setIcon(null);
-		}
+			jlbcom2.setIcon(jlbs[cardorder].getIcon());
+			JP1.remove(jlbDeck[cardorder]);
 		
-		cardorder++;
-		uporder4++;
-		uporder5++;
-		repaint();
+			int a = (int)(Math.random() * 2);
 		
-		if(cardorder>=16){
-			finalresult();
-		}
-		else{
-			jlbDeck[cardorder].addMouseListener(new ClickMouseListener00());
-		}
+			if(a==1){
+				jlb4[uporder4].setIcon(jlbcom2.getIcon());
+				jlbcom2.setIcon(null);
+			}
+			else{
+				jlb4[uporder4].setIcon(jlbcom.getIcon());
+				jlbcom.setIcon(jlbcom2.getIcon());
+				jlbcom2.setIcon(null);
+			}
 		
+			cardorder++;
+			uporder4++;
+			uporder5++;
+			repaint();
+		
+			if(cardorder>=16){
+				finalresult();
+			}
+			else{
+				jlbDeck[cardorder].addMouseListener(new ClickMouseListener00());
+			}
+		}
 	}
 	
 	public void finalresult(){

@@ -222,7 +222,7 @@ public class boardgame extends JFrame{
 			lb1.setFont(new Font("Courie", Font.BOLD, 20));
 			JLabel lb2 = new JLabel("聽到母后因叛國罪被逮捕的消息，最難過的莫過於安妮塔公主。她的眾多追求者試圖為她的生活帶來一些愛情能量，好讓他走過傷痛。");
 			JLabel lb3 = new JLabel("你身為其中1位追求者，試圖要把親筆情書送到公主手上，然而，她把自己關在深宮內院裡，因此你必須透過一些相關人士代你轉交。");
-			JLabel lb4 = new JLabel("在遊戲中，你手上會保有一張牌，她代表當前在幫你轉交情書的人。物比確保你把情書交給最接近公主的人以勝過其他追求者。");
+			JLabel lb4 = new JLabel("在遊戲中，你手上會保有一張牌，她代表當前在幫你轉交情書的人。務必確保你把情書交給最接近公主的人以勝過其他追求者。");
 			JLabel lb5 = new JLabel("1 - 衛兵 (5張)");
 			JLabel lb6 = new JLabel("2 - 神父 (2張)");
 			JLabel lb7 = new JLabel("3 - 男爵 (2張)");

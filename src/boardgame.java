@@ -96,6 +96,12 @@ public class boardgame extends JFrame{
 	
 	private JButton jbtStart = new JButton("開始");
 	
+	private JButton jbtRule = new JButton("規則");
+	
+	private GuessListener guesslistener1 = new GuessListener();
+	private PeepListener peepListener1 = new PeepListener();
+	private Choose1Listener choose1Listener1 = new Choose1Listener();
+	private Choose2Listener choose2Listener1 = new Choose2Listener();
 	JLabel lbl;
 	
 	private JPanel JP1 = new JPanel();
@@ -142,6 +148,11 @@ public class boardgame extends JFrame{
 		jbtStart.setBounds(800, 400, 100, 60);
 		JP1.add(jbtStart);
 		jbtStart.addActionListener(new StartListener());
+		
+		jbtRule.setFont(new Font("Courie", Font.BOLD, 30));
+		jbtRule.setBounds(800, 490, 100, 60);
+		JP1.add(jbtRule);
+		jbtRule.addActionListener(new RuleListener());
 
 		
 		blockText1.setFont(new Font("Courie", Font.BOLD, 50));
@@ -203,18 +214,59 @@ public class boardgame extends JFrame{
 			jbtStart.setEnabled(false);
 		}
 	}
+	private class RuleListener implements ActionListener{
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			JFrame frame2 = new JFrame();
+			JLabel lb1 = new JLabel("情書");
+			lb1.setFont(new Font("Courie", Font.BOLD, 20));
+			JLabel lb2 = new JLabel("聽到母后因叛國罪被逮捕的消息，最難過的莫過於安妮塔公主。她的眾多追求者試圖為她的生活帶來一些愛情能量，好讓他走過傷痛。");
+			JLabel lb3 = new JLabel("你身為其中1位追求者，試圖要把親筆情書送到公主手上，然而，她把自己關在深宮內院裡，因此你必須透過一些相關人士代你轉交。");
+			JLabel lb4 = new JLabel("在遊戲中，你手上會保有一張牌，她代表當前在幫你轉交情書的人。物比確保你把情書交給最接近公主的人以勝過其他追求者。");
+			JLabel lb5 = new JLabel("1 - 衛兵 (5張)");
+			JLabel lb6 = new JLabel("2 - 神父 (2張)");
+			JLabel lb7 = new JLabel("3 - 男爵 (2張)");
+			JLabel lb8 = new JLabel("4 - 侍女 (2張)");
+			JLabel lb9 = new JLabel("5 - 王子 (1張)");
+			JLabel lb10 = new JLabel("6 - 國王 (1張)");
+			JLabel lb11= new JLabel("7 - 伯爵夫人 (1張)");
+			JLabel lb12= new JLabel("8 - 公主 (1張)");
+			JPanel panel = new JPanel(new GridLayout(12,1));
+			frame2.add(panel);
+			frame2.setTitle("Rule");
+			panel.add(lb1);
+			panel.add(lb2);
+			panel.add(lb3);
+			panel.add(lb4);
+			panel.add(lb5);
+			panel.add(lb6);
+			panel.add(lb7);
+			panel.add(lb8);
+			panel.add(lb9);
+			panel.add(lb10);
+			panel.add(lb11);
+			panel.add(lb12);
+			frame2.setSize(800, 600);;
+			frame2.setLocationRelativeTo(null); // Center the frame 
+			frame2.setDefaultCloseOperation(1);
+			frame2.setVisible(true);
+		}
+	}
 	
 	private class GuessListener implements ActionListener{
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			int a = Integer.parseInt(guess.getText());
 			ImageIcon guesscard = new ImageIcon("src/image/" + a +".jpg");
-			if(guesscard == jlbcom.getIcon()){
+			
+			if(jlbcom.getIcon() == guesscard){
 				win();
+				
 			}
 			else{
 				JP1.remove(jlbguess);
 				JP1.remove(guess);
+				jbtguess.removeActionListener(guesslistener1);
 				JP1.remove(jbtguess);
 				guessfail();
 				repaint();
@@ -227,7 +279,8 @@ public class boardgame extends JFrame{
 	private class PeepListener implements ActionListener{
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			jlb2.setIcon(jlbcom.getIcon());
+			jlb3.setIcon(jlbcom.getIcon());
+			jbtpeep.removeActionListener(peepListener1);;
 			JP1.remove(jbtpeep);
 			repaint();
 			
@@ -248,7 +301,6 @@ public class boardgame extends JFrame{
 			}
 			repaint();
 			
-			computer();
 		}
 	}
 	
@@ -259,9 +311,11 @@ public class boardgame extends JFrame{
 			jlb4[uporder4].setIcon(jlbcom.getIcon());
 			jlbcom.setIcon(jlbs[cardorder].getIcon());
 			JP1.remove(jlbDeck[cardorder]);
-			uporder4++;
+			jbtchoose1.removeActionListener(choose1Listener1);
+			jbtchoose2.removeActionListener(choose2Listener1);
 			JP1.remove(jbtchoose1);
 			JP1.remove(jbtchoose2);
+			uporder4++;
 			repaint();
 			
 			computer();
@@ -272,12 +326,15 @@ public class boardgame extends JFrame{
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			cardorder++;
+			uporder5++;
 			jlb5[uporder5].setIcon(jlb0.getIcon());
 			jlb0.setIcon(jlbs[cardorder].getIcon());
 			JP1.remove(jlbDeck[cardorder]);
+			jbtchoose1.removeActionListener(choose1Listener1);
+			jbtchoose2.removeActionListener(choose2Listener1);
 			JP1.remove(jbtchoose1);
 			JP1.remove(jbtchoose2);
-			uporder5++;
+			
 			repaint();
 			
 			computer();
@@ -293,6 +350,8 @@ public class boardgame extends JFrame{
 			jlb0.setIcon(jlbcom2.getIcon());
 			
 			jlbcom2.setIcon(null);
+			
+			JP1.remove(jbtchange);
 			repaint();
 			
 			computer();
@@ -319,9 +378,11 @@ public class boardgame extends JFrame{
 		@Override /** Handle mouse click on a cell */
 		public void mouseClicked(MouseEvent e) {
 			if(jlbfuck!=null){
-				JP1.remove(jlbfuck);
+				jlbfuck.setText(null);
 			}
-			
+			if(jlbcom2!=null){
+				jlbcom2.setIcon(null);;
+			}
 			jlb1.setIcon(jlbs[cardorder].getIcon());
 			JP1.remove(jlbDeck[cardorder]);
 			repaint();
@@ -498,7 +559,7 @@ public class boardgame extends JFrame{
 			jbtguess.setBounds(550, 600, 80, 50);
 			jbtguess.setFont(new Font("Courie", Font.BOLD, 20));
 			JP1.add(jbtguess);
-			jbtguess.addActionListener(new GuessListener());
+			jbtguess.addActionListener(guesslistener1);
 			repaint();
 			
 		}
@@ -508,7 +569,7 @@ public class boardgame extends JFrame{
 			jbtpeep.setBounds(550, 600, 80, 50);
 			jbtpeep.setFont(new Font("Courie", Font.BOLD, 20));
 			JP1.add(jbtpeep);
-			jbtpeep.addActionListener(new PeepListener());
+			jbtpeep.addActionListener(peepListener1);
 			repaint();
 		}
 		
@@ -534,12 +595,12 @@ public class boardgame extends JFrame{
 			jbtchoose1.setBounds(550, 550, 120, 50);
 			jbtchoose1.setFont(new Font("Courie", Font.BOLD, 20));
 			JP1.add(jbtchoose1);
-			jbtchoose1.addActionListener(new Choose1Listener());
+			jbtchoose1.addActionListener(choose1Listener1);
 			
 			jbtchoose2.setBounds(550, 630, 120, 50);
 			jbtchoose2.setFont(new Font("Courie", Font.BOLD, 20));
 			JP1.add(jbtchoose2);
-			jbtchoose2.addActionListener(new Choose2Listener());
+			jbtchoose2.addActionListener(choose2Listener1);
 			repaint();
 		}
 		
@@ -598,7 +659,7 @@ public class boardgame extends JFrame{
 	}
 	
 	public void finalresult(){
-		jbtresult.setBounds(550, 600, 80, 50);
+		jbtresult.setBounds(550, 600, 150, 50);
 		jbtresult.setFont(new Font("Courie", Font.BOLD, 20));
 		JP1.add(jbtresult);
 		jbtresult.addActionListener(new ResultListener());
@@ -625,7 +686,7 @@ public class boardgame extends JFrame{
 		lb1.setFont(new Font("Courie", Font.BOLD, 150));
 		lb1.setForeground(Color.MAGENTA);
 		
-		frame.setTitle("AResult");
+		frame.setTitle("Result");
 		frame.add(lb1);
 		frame.pack();
 		frame.setLocationRelativeTo(null); // Center the frame
